@@ -151,7 +151,6 @@ class Competition:
                 potential_opponents.append((other_model, score_diff))
 
         potential_opponents.sort(key=lambda x: x[1])
-        print(f"random_match_prob: {self.random_match_prob}")
         return random.choice(potential_opponents[:self.num_opponents])[0]
 
     def run(self, instructions: List[str]) -> List[Dict]:
@@ -830,23 +829,13 @@ def main():
         # Update model registration path
         def model_register(model_name):
             model_base = model_base_mapping[model_name]
-            if os.path.exists(os.path.join(args.init_model_dir, model_name)):
-                if fair_or_not:
-                    init_model_dir = os.path.join(args.init_model_dir, model_base)
-                    model_init = ModelInitFair(save_dir=init_model_dir, task=task, base_model=model_base)
-                else:
-                    init_model_dir = os.path.join(args.init_model_dir, model_base)
-                    model_init = ModelInit(save_dir=init_model_dir, task=task, base_model=model_base)
-                return model_init.init_model(model_name)
+            if fair_or_not:
+                model_init = ModelInitFair(save_dir=args.init_model_dir, task=task, base_model=model_base)
             else:
-                if fair_or_not:
-                    init_model_dir = os.path.join(args.init_model_dir, model_base)
-                    model_init = ModelInitFair(save_dir=init_model_dir, task=task, base_model=model_base)
-                else:
-                    init_model_dir = os.path.join(args.init_model_dir, model_base)
-                    model_init = ModelInit(save_dir=init_model_dir, task=task, base_model=model_base)
+                model_init = ModelInit(save_dir=args.init_model_dir, task=task, base_model=model_base)
+            if not os.path.exists(os.path.join(args.init_model_dir, model_base, model_name)):
                 model_init.init_model_local(model_name)
-                return model_init.init_model(model_name)
+            return model_init.init_model(model_name)
 
         for module_name in list(sys.modules.keys()):
             if 'unsloth' in module_name:

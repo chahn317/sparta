@@ -1,3 +1,6 @@
 .DS_Store
 /data/.DS_Store
 /src1/.DS_Store
+init_model/
+dpo_model/
+src1/__pycache__/

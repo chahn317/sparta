@@ -102,9 +102,12 @@ Please judge the following response based on the question and the response to be
 Question: {pair['instruction']}
 Response to be evaluated: {response}
 
-Operation: Output ONLY a JSON object with one score in this exact format. Score must be in the range of 1 to 10.
-Your output should be like this:
-{{"score": score}}
+Operation: Output ONLY a JSON object with a numerical score in the place of YOUR_SCORE in the 
+following format exactly. YOUR_SCORE must be between 1 to 10, inclusive. DO NOT include any 
+explanation, reasoning, or extra text.
+
+Your output should look like this:
+{{"score": YOUR_SCORE}}
 """
                 all_instructions.append(instruction)
                 instruction_map[len(all_instructions)-1] = (idx, resp_idx)

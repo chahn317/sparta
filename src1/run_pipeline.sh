@@ -24,13 +24,13 @@ for run in {1..1}; do
     BASE_MODEL_DIR="$PROJECT_ROOT/base_model/$BASE_MODEL"
     DATA_DIR="$PROJECT_ROOT/data"
     MAX_ITERATIONS=8
-    GPU_IDS="6,7,8"
+    GPU_IDS="0,1,2"
     WANDB_PROJECT="model_evaluation"
     USE_FAIR=true
     FIRST_GPU=$(echo $GPU_IDS | cut -d',' -f1)
     NUM_INSTRUCTIONS=1000
     BATCH_SIZE=24
-    CONDA_ENV="rebuttal"
+    CONDA_ENV="sparta"
     MODEL_NAMES="code_alpaca,cot,flan_v2,gemini_alpaca,lima,oasst1"
     ACCELERATE_CONFIG="$SCRIPT_DIR/accelerate_config/fsdp.yaml"
 
